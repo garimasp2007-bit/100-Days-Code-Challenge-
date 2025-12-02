@@ -1,98 +1,108 @@
-//Q63: Merge two arrays.
+// Q65: Search in a sorted array using binary search.
+#include<stdio.h>
 
-/*
-Sample Test Cases:
-Input 1:
-3
-1 2 3
-2
-4 5
-Output 1:
-1 2 3 4 5
-
-*/
-#include <stdio.h>
-
-void main() {
+int main(){
     int n;
-    printf("Enter size of first array: ");
+    printf("Enter the number of elements you want to enter in the array: \n");
     scanf("%d", &n);
-
-    int arr1[n];
-    printf("Enter elements of first array: ");
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &arr1[i]);
+    int a[n];
+    if(n>0){
+        printf("Enter %d elements: \n", n);
+        for(int i=0; i<n; i+=1){
+            scanf("%d", &a[i]);
+        }
+        // To sort array:
+        for(int i=0; i<n-1; i+=1){
+            for(int j=i+1; j<=n-1; j+=1){
+                if(a[i]>a[j]){
+                    a[i]=a[i]+a[j];
+                    a[j]=a[i]-a[j];
+                    a[i]=a[i]-a[j];
+                }
+            }
+        }
+        printf("\nSorted array: \n");
+        for(int i=0; i<n; i+=1){
+            printf("%d ", a[i]);
+        }
+        // To search in sorted array using bubble sort:
+        int key, flag=0, pos;
+        printf("\nEnter the number to search: \n");
+        scanf("%d", &key);
+        int i=0, j=n-1;
+        while(i<=j){
+            int mid = (i+j)/2;
+            if(a[mid]==key){
+                flag = 1;
+                pos = mid+1;
+                break;
+            }
+            else if(a[mid]>key){
+                j = mid-1;
+            }
+            else if(a[mid]<key){
+                i = mid+1;
+            }
+        }
+        if(flag==1){
+            printf("%d found at %d position!", key, pos);
+        }
+        else
+            printf("-1");
     }
-
-    int m;
-    printf("Enter size of second array: ");
-    scanf("%d", &m);
-
-    int arr2[m];
-    printf("Enter elements of second array: ");
-    for (int i = 0; i < m; i++) {
-        scanf("%d", &arr2[i]);
-    }
-
-    int a = n + m;
-    int arr3[a];
-
-    int count = 0;
-
-    for (int i = 0; i < n; i++) {
-        arr3[count] = arr1[i];
-        count++;
-    }
-
-    for (int i = 0; i < m; i++) {
-        arr3[count] = arr2[i];
-        count++;
-    }
-
-    printf("Merged Array: ");
-    for (int i = 0; i < a; i++) {
-        printf("%d ", arr3[i]);
-    }
+    else    
+        printf("Number of elements can't be negative or zero!");
+    return 0;
 }
-//Q64: Find the digit that occurs the most times in an integer number.
+// Q66: Insert an element in a sorted array at the appropriate position.
+#include<stdio.h>
 
-/*
-Sample Test Cases:
-Input 1:
-112233
-Output 1:
-1
-
-Input 2:
-887799
-Output 2:
-7
-
-*/
-#include <stdio.h>
-
-void main() {
-    int n, digit;
-    int freq[10] = {0};  // To store frequency of each digit
-    
-    printf("Enter number: ");
+int main(){
+    int n;
+    printf("Enter the number of elements you want to enter in the array: \n");
     scanf("%d", &n);
-    
-    int temp = n;
-    
-    while (temp > 0) {
-        digit = temp % 10;
-        freq[digit]++;
-        temp = temp / 10;
-    }
-    
-    int max = 0, ans = 0;
-    for (int i = 0; i < 10; i++) {
-        if (freq[i] > max) {
-            max = freq[i];
-            ans = i;
+    int a[n];
+    if(n>0){
+        printf("Enter %d elements: \n", n);
+        for(int i=0; i<n; i+=1){
+            scanf("%d", &a[i]);
+        }
+        // To sort array:
+        for(int i=0; i<n-1; i+=1){
+            for(int j=i+1; j<=n-1; j+=1){
+                if(a[i]>a[j]){
+                    a[i]=a[i]+a[j];
+                    a[j]=a[i]-a[j];
+                    a[i]=a[i]-a[j];
+                }
+            }
+        }
+        printf("\nSorted array: \n");
+        for(int i=0; i<n; i+=1){
+            printf("%d ", a[i]);
+        }
+        // To insert element at appropriate position:
+        int key;
+        int b[n+1];
+        for(int i=0; i<n; i+=1){
+            b[i] = a[i];
+        }
+        printf("\nEnter the element you want to enter in the array: \n");
+        scanf("%d", &key);
+        int index=0;;
+        while(index<n+1 && b[index]<key){
+            index+=1;
+        }
+        int i=n;
+        while(i>=index){
+            b[i]=b[i-1];
+            i-=1;         
+        }
+        b[index]=key;
+        printf("Array after insertion is: \n");
+        for(int i=0; i<=n; i+=1){
+            printf("%d ", b[i]);
         }
     }
-    
-    printf("Digit that occurs the most: %d", ans);
+    return 0;
 }
